@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bookworm — Simple Book Tracker</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header with App Title & Counter -->
+    <header class="app-header">
+      <div class="logo-area">
+        <span class="logo-icon">📖</span>
+        <h1>Bookworm</h1>
+      </div>
+      <p class="tagline">Your personal reading companion</p>
+      
+      <!-- Stats summary at the top -->
+      <div class="stats-bar" id="stats-bar">
+        <div class="stat-pill total">
+          <span class="stat-label">Total Books:</span>
+          <span class="stat-value" id="total-count">0</span>
+        </div>
+        <div class="stat-pill read">
+          <span class="stat-label">Read:</span>
+          <span class="stat-value" id="read-count">0</span>
+        </div>
+        <div class="stat-pill unread">
+          <span class="stat-label">Not Read:</span>
+          <span class="stat-value" id="unread-count">0</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Add Book Form Section -->
+    <section class="card add-book-card">
+      <h2 class="card-title">Add a New Book</h2>
+      <form id="add-book-form" novalidate>
+        <div class="form-group">
+          <label for="book-title">Book Title</label>
+          <input 
+            type="text" 
+            id="book-title" 
+            placeholder="e.g. To Kill a Mockingbird" 
+            autocomplete="off"
+            required
+          >
+          <span class="error-msg" id="title-error"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="book-author">Author</label>
+          <input 
+            type="text" 
+            id="book-author" 
+            placeholder="e.g. Harper Lee" 
+            autocomplete="off"
+            required
+          >
+          <span class="error-msg" id="author-error"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="book-status">Status</label>
+          <select id="book-status">
+            <option value="unread">Not Read</option>
+            <option value="read">Read</option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary" id="add-btn">
+          <span>+ Add Book</span>
+        </button>
+      </form>
+    </section>
+
+    <!-- Books Collection Section -->
+    <section class="card book-list-card">
+      <div class="list-header">
+        <h2 class="card-title">My Reading List</h2>
+        
+        <!-- Search bar -->
+        <div class="search-box">
+          <input 
+            type="text" 
+            id="search-input" 
+            placeholder="Search by title or author..."
+            aria-label="Search books"
+          >
+          <button type="button" id="clear-search-btn" class="clear-btn" aria-label="Clear search" title="Clear search">&times;</button>
+        </div>
+      </div>
+
+      <!-- Friendly Empty State message -->
+      <div id="empty-state" class="empty-state" style="display: none;">
+        <div class="empty-icon">📚</div>
+        <h3 id="empty-title">Your bookshelf is empty!</h3>
+        <p id="empty-subtitle">Add your first book above to start tracking your reading journey.</p>
+      </div>
+
+      <!-- The dynamic book list -->
+      <ul id="book-list" class="book-list" aria-live="polite"></ul>
+    </section>
+  </div>
+
+  <!-- Edit Book Modal -->
+  <div id="edit-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title" style="display: none;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 id="modal-title">Edit Book</h2>
+        <button type="button" class="close-btn" id="modal-close-btn" aria-label="Close dialog">&times;</button>
+      </div>
+      <form id="edit-book-form">
+        <input type="hidden" id="edit-book-id">
+        
+        <div class="form-group">
+          <label for="edit-book-title">Book Title</label>
+          <input type="text" id="edit-book-title" required autocomplete="off">
+          <span class="error-msg" id="edit-title-error"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="edit-book-author">Author</label>
+          <input type="text" id="edit-book-author" required autocomplete="off">
+          <span class="error-msg" id="edit-author-error"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="edit-book-status">Status</label>
+          <select id="edit-book-status">
+            <option value="unread">Not Read</option>
+            <option value="read">Read</option>
+          </select>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn btn-secondary" id="modal-cancel-btn">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
